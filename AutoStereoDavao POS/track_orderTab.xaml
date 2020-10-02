@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="AutoStereoDavao_POS.track_orderTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoStereoDavao_POS"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             Background="white"   
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"      
+             Padding="3"
+             BorderThickness="1" BorderBrush="Black">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <Style TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="GroupBox">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FontFamily" Value="Calibri"/>
+                <Setter Property="Margin" Value="25,1,5,5"/>
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" FontWeight="DemiBold" FontSize="15"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+              Storyboard.TargetProperty="Opacity"
+                 From="0.0" To="1.0" Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    
+    <Grid MinWidth="800" MinHeight="400" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="263*"/>
+            <RowDefinition Height="130" MinHeight="130"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+
+
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Incoming Products" FontSize="15" FontWeight="ExtraLight"
+                   Padding="7.5" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="240"/>
+
+        <Button ToolTip="Add Tracking order" BorderBrush="Transparent" BorderThickness="1" Grid.Row="0"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" Style="{DynamicResource MaterialDesignFlatButton}"
+                        Background="White" Height="35" FontSize="13" Foreground="black"  Margin="58,40,0,0" Click="Button_Click"  >
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Plus" Foreground="Gray" Width="22" FontWeight="ExtraLight" Height="18" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="64" Height="19" FontSize="12" FontWeight="ExtraLight" ><Run Text="Add Record"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button ToolTip="Refresh Record Data " BorderBrush="Transparent" BorderThickness="1" Grid.Row="0"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" Width="53" Style="{DynamicResource MaterialDesignFlatButton}"
+                        Background="White" Height="26" FontSize="13" Foreground="black" Grid.Column="0" Click="Button_Click_3"   >
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Refresh" Foreground="Gray" Width="22" FontWeight="ExtraLight" Height="18" RenderTransformOrigin="-2.044,0.844" />
+
+            </StackPanel>
+        </Button>
+
+
+
+        <DataGrid x:Name="tbl_track" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      AutoGenerateColumns="False" xmlns:s="clr-namespace:System;assembly=mscorlib" 
+                      ColumnWidth="*" CanUserAddRows="false" Background="#e4ebf8"  RowHeight="40"
+                      BorderBrush="ForestGreen" HorizontalGridLinesBrush="Black" GridLinesVisibility="Horizontal" SelectionChanged="tbl_track_SelectionChanged_1" Grid.Row="0" Margin="0,80,0,0"   >
+            <DataGrid.Resources>
+                <s:String x:Key="format">{0:N}</s:String>
+
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Foreground" Value="white" />
+                    <Setter Property="Background" Value="#414041" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Reference Number" Binding="{Binding ref_num}" Width="*" />
+                <DataGridTextColumn Header="Tracking Number" Binding="{Binding track_number}" Width="*" />
+                <DataGridTextColumn Header="Product Description" Binding="{Binding prod_desc}"  Width="*" />
+            </DataGrid.Columns>
+            
+           
+        </DataGrid>
+
+
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Stretch"/>
+        <Rectangle  Grid.Row="1" Fill="#252525" VerticalAlignment="Stretch"/>
+
+        <TextBox    x:Name="name"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="12"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Focusable="False"
+                            Grid.Row="1"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Product Description"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="227,0,0,16" HorizontalAlignment="Left" Width="187"  VerticalAlignment="Bottom" Height="48" RenderTransformOrigin="0.772,0.429"  />
+
+        <TextBox    x:Name="track_num"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="12"
+                            MaxLength="40"
+                            Grid.Row="1"
+                            Visibility="Visible" 
+                            Focusable="False"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Tracking Number"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="10,0,0,16" HorizontalAlignment="Left" Width="187"  VerticalAlignment="Bottom" Height="48" RenderTransformOrigin="0.772,0.429"  />
+
+        <Button ToolTip="Receive Product / Update Quantity" BorderBrush="Transparent" BorderThickness="1" Grid.Row="1"
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                        Background="White" Height="35" FontSize="13" Foreground="black"  Margin="110,0,0,87" Grid.Column="0" Click="Button_Click_1"    >
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Check" Foreground="GreenYellow" Width="22" FontWeight="ExtraLight" Height="18" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="64" Height="19" FontSize="12" Foreground="White" FontWeight="ExtraLight" ><Run Text="Receive"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button ToolTip="Remove Order" BorderBrush="Transparent" BorderThickness="1" Grid.Row="1"
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                        Background="White" Height="35" FontSize="13" Foreground="black"  Margin="10,0,0,87" Grid.Column="0" Click="Button_Click_2"   >
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Cancel" Foreground="Red" Width="22" FontWeight="ExtraLight" Height="18" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="64" Height="19" FontSize="12" Foreground="White"  FontWeight="ExtraLight" ><Run Text="Cancel"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+
+
+
+    </Grid>
+
+</UserControl>

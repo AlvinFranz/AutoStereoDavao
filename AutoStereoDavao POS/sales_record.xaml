@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="AutoStereoDavao_POS.sales_record"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoStereoDavao_POS"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="white"   
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             FocusManager.IsFocusScope="True"           
+             Language="en-PH"
+             Padding="3">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="GroupBox">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FontFamily" Value="Calibri"/>
+                <Setter Property="Margin" Value="25,1,5,5"/>
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" FontWeight="DemiBold" FontSize="15"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+              Storyboard.TargetProperty="Opacity"
+              From="0.0" To="1.0" Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid  Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="200" />
+            <RowDefinition Height="6*" MinHeight="300" />
+
+        </Grid.RowDefinitions>
+
+
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Sales Record" FontSize="15" FontWeight="ExtraLight"
+                   Padding="7.5" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"/>
+
+        <TextBox    x:Name="search"
+                    Grid.Row="0" FontSize="15"
+                    ToolTip ="Search for sale record"
+                    BorderThickness="1"
+                    Background="#FBFBFB"
+                    materialDesign:HintAssist.Hint="Search"
+                    materialDesign:HintAssist.Foreground="Green"
+                    materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="0,0,0,10" HorizontalAlignment="Right" Width="211"  VerticalAlignment="Bottom" Height="45" TextChanged="search_TextChanged"   />
+
+
+
+        <GroupBox  Grid.Row="0"  Header="Filter Report" Margin="254,38,242,80"   Background="White" HorizontalAlignment="Center" >
+            <Grid Margin="0,-6,-1.667,-6">
+
+                <DatePicker x:Name="start_date" materialDesign:HintAssist.Hint="From:" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                    Focusable="False" 
+                    FontSize="15"
+                    Margin="10,10,0,0"
+                    VerticalAlignment="Top"
+                    ToolTip="Start Date of Report"
+                     Height="45" Foreground="Gray" BorderBrush="#89000000" FontWeight="Bold" HorizontalAlignment="Left" Width="146"  />
+
+                <DatePicker x:Name="end_date" materialDesign:HintAssist.Hint="To:" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                    Focusable="False" 
+                    FontSize="15"
+                    Margin="192,10,0,0"
+                    VerticalAlignment="Top"
+                    ToolTip="End Date of Report"
+                    Height="45" Foreground="Gray" BorderBrush="#89000000" FontWeight="Bold" HorizontalAlignment="Left" Width="146"  />
+
+                <Button Grid.Column="0" Grid.Row="0" ToolTip="Create Report" BorderBrush="Transparent" BorderThickness="1" Style="{DynamicResource MaterialDesignFlatButton}"
+                        Background="White" Height="33" FontSize="13" Foreground="black" Margin="343,22,-0.333,0" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Click="create_report" >
+
+                    <StackPanel Orientation="Horizontal" Width="86">
+                        <materialDesign:PackIcon Kind="Sale" Foreground="Gray" Width="32" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                        <TextBlock Width="84" Height="18" FontSize="15" FontWeight="ExtraLight" ><Run Text="Report"/></TextBlock>
+                    </StackPanel>
+                </Button>
+
+
+            </Grid>
+        </GroupBox>
+
+        <DataGrid x:Name="tbl_sales" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      AutoGenerateColumns="False" xmlns:s="clr-namespace:System;assembly=mscorlib" 
+                      ColumnWidth="*" CanUserAddRows="false"  Background="#e4ebf8"
+                      BorderBrush="Gray" BorderThickness="1"   HorizontalGridLinesBrush="Black" GridLinesVisibility="Horizontal" SelectionChanged="tbl_sales_SelectionChanged" Margin="0,195,0,5" Grid.RowSpan="2"   >
+            <DataGrid.Resources>
+                <s:String x:Key="format">{0:N}</s:String>
+
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Foreground" Value="white" />
+                    <Setter Property="Background" Value="#414041" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Header="Image" Width="*" RenderOptions.BitmapScalingMode="NearestNeighbor" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding prod_image}" Height="100" Stretch="fill"  />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Reference #" Binding="{Binding sales_id}" Width="*" />
+                <DataGridTextColumn Header="Customer name" Binding="{Binding customer_name}" Width="*" />
+                <DataGridTextColumn Header="Contact #" Binding="{Binding contact}"  Width="*" />
+                <DataGridTextColumn Header="Item Description" Binding="{Binding prod_desc}"  Width="*" />
+                <DataGridTextColumn Header="Item Price" Binding="{Binding prod_price, StringFormat=C}"  Width="*" />
+                <DataGridTextColumn Header="Payment" Binding="{Binding payment, StringFormat=C}"  Width="*" />
+                <DataGridTextColumn Header="Customer Type" Binding="{Binding customer_type}" Width="*" />
+                <DataGridTextColumn Header="Date Ordered" Binding="{Binding date_ordered}" Width="*" />
+                <DataGridTextColumn Header="Date Purchased" Binding="{Binding date_purchased}" Width="*" />
+                <DataGridTextColumn Header="" Binding="{Binding product_id}" Width="*" Visibility="Hidden" />
+
+            </DataGrid.Columns>
+
+            
+        </DataGrid>
+
+        <Button Grid.Column="0" ToolTip="Delete Highlighted Item" BorderBrush="Transparent" BorderThickness="1" 
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="94" Style="{DynamicResource MaterialDesignFlatButton}"
+                        Background="WhiteSmoke" Height="32" FontSize="13" Foreground="black" Margin="10,0,0,5" Click="Button_Click"  >
+
+            <StackPanel Orientation="Horizontal" Width="74">
+                <materialDesign:PackIcon Kind="Trash" Foreground="Black" Width="17" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="46" Height="18" Foreground="black" FontSize="15" FontWeight="ExtraLight" ><Run Text="Delete"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Column="0" ToolTip="Return data to reservation" BorderBrush="Transparent" BorderThickness="1" 
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="101" Style="{DynamicResource MaterialDesignFlatButton}"
+                        Background="WhiteSmoke" Height="32" FontSize="13" Foreground="black" Margin="109,0,0,5" Click="Button_Click_1"  >
+
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="undo" Foreground="BlueViolet" Width="32" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="37" Height="19" FontSize="15" FontWeight="ExtraLight" ><Run Text="Undo"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <!--<Button Grid.Column="0" ToolTip="Create Receipt of Highlighted Item" BorderBrush="Transparent" BorderThickness="1" 
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="112" Style="{DynamicResource MaterialDesignFlatButton}"
+                        Background="WhiteSmoke" Height="32" FontSize="13" Foreground="black" Margin="215,0,0,5" >
+
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Receipt" Foreground="Green" Width="30" FontWeight="ExtraLight" Height="23" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="45" Height="18" FontSize="15" FontWeight="ExtraLight" ><Run Text="Receipt"/></TextBlock>
+            </StackPanel>
+        </Button>-->
+
+
+    </Grid>
+</UserControl>
+

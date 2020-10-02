@@ -1,0 +1,20 @@
+﻿<Window x:Class="AutoStereoDavao_POS.sales_recordViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms" 
+        xmlns:local="clr-namespace:AutoStereoDavao_POS"
+        mc:Ignorable="d"
+        Title="sales_recordViewer" 
+        Height="900" Width="1600"
+        ResizeMode="NoResize"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch"
+        > 
+    <Grid>
+        <WindowsFormsHost >
+            <rv:ReportViewer x:Name="reportViewer1"  />
+
+        </WindowsFormsHost>
+    </Grid>
+</Window>

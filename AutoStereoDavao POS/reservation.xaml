@@ -1,0 +1,245 @@
+﻿<UserControl x:Class="AutoStereoDavao_POS.reservation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoStereoDavao_POS"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             Background="white"   
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"      
+             Padding="3"
+             Language="en-PH"
+             BorderThickness="1" BorderBrush="Black" >
+                
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+              Storyboard.TargetProperty="Opacity"
+                 From="0.0" To="1.0" Duration="0:0:1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="GroupBox">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FontFamily" Value="Calibri"/>
+                <Setter Property="Margin" Value="25,1,5,5"/>
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" FontWeight="DemiBold" FontSize="15"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid  >
+        <Grid.RowDefinitions>
+
+        </Grid.RowDefinitions>
+        
+        <Rectangle Grid.Row="0" Grid.RowSpan="3" Fill="WhiteSmoke" />
+
+        <Button ToolTip="Purchase a product" BorderBrush="Transparent" HorizontalAlignment="Left" BorderThickness="1" Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                        Background="White" Height="27" FontSize="13" Foreground="black"  Margin="760,56,0,0" Grid.Column="0" Click="Button_Click" VerticalAlignment="Top" Width="90"   >
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Check" Foreground="ForestGreen" Width="22" FontWeight="ExtraLight" Height="18" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="64" Height="19" FontSize="12" FontWeight="ExtraLight" ><Run Text="Confirm"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button ToolTip="Purchase a product" BorderBrush="Transparent"  BorderThickness="1" 
+                        HorizontalAlignment="Left" Width="75" Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                        Background="White" Height="27" FontSize="13" Foreground="black"  Margin="760,97,0,0" Grid.Column="0" Click="delete_reservation" VerticalAlignment="Top"  >
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="cancel" Foreground="Red" Width="22" FontWeight="ExtraLight" Height="18" RenderTransformOrigin="-2.044,0.844" />
+                <TextBlock Width="64" Height="19" FontSize="12" FontWeight="ExtraLight" ><Run Text="Cancel"/></TextBlock>
+            </StackPanel>
+        </Button>
+
+
+
+        <TextBlock FontSize="15" Grid.Row="0" FontWeight="ExtraLight" Margin="10,9,0,0" HorizontalAlignment="Left" Width="117" Height="23" VerticalAlignment="Top" ><Run Text="Reservation"/></TextBlock>
+
+        <TextBox    x:Name="reserve_id"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="11"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Focusable="False"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Reference No."
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="196,49,0,0" VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429" HorizontalAlignment="Left" Width="157"  />
+
+        <TextBox    x:Name="name"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="11"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Focusable="False"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Customer Name"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="10,49,0,0"   VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429" HorizontalAlignment="Left" Width="157"  />
+
+        <TextBox    x:Name="product"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="11"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Focusable="False"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Product Description"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="196,90,0,0"    VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429" HorizontalAlignment="Left" Width="157"  />
+
+        <TextBox    x:Name="price"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="11"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Focusable="False"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Product Price"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="379,90,0,0" VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429" HorizontalAlignment="Left" Width="157"  />
+
+        <TextBox    x:Name="date_order"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="11"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Focusable="False"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Date Ordered"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="379,49,0,0"   VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429" HorizontalAlignment="Left" Width="157"  />
+
+
+
+        <TextBox    x:Name="customer_type"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="12"
+                            MaxLength="40"
+                            Visibility="hidden" 
+                            Focusable="False"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Selling Price"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="10,349,0,0"  VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429"  />
+
+
+        <TextBox    x:Name="selling_price"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="11"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Focusable="True"
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Customer Payment"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="565,49,0,0"   VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.267,0.972" HorizontalAlignment="Left" Width="180"  />
+
+        <TextBox    x:Name="contact"
+                            Grid.Column="0"
+                            BorderThickness="0" FontSize="11"
+                            Focusable="False"
+                            MaxLength="40"
+                            Visibility="Visible" 
+                            Background="#FBFBFB"
+                            materialDesign:HintAssist.Hint="Contact #"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="10,90,0,0" VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429" HorizontalAlignment="Left" Width="157"  />
+
+
+
+        <Border  BorderThickness="1" BorderBrush="WhiteSmoke" Margin="0,185,0,0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  >
+            <DataGrid x:Name="tbl_reservation"   IsReadOnly="True"   HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      AutoGenerateColumns="False" xmlns:s="clr-namespace:System;assembly=mscorlib" 
+                      ColumnWidth="*" CanUserAddRows="false" Margin="-1,-1,1,-1"  Background="#e4ebf8"
+                      BorderBrush="ForestGreen"  HorizontalGridLinesBrush="Black" GridLinesVisibility="Horizontal" VerticalAlignment="Stretch" SelectionChanged="tbl_reservation_SelectionChanged"  >
+                <DataGrid.Resources>
+                    <s:String x:Key="format">{0:N}</s:String>
+
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Foreground" Value="white" />
+                        <Setter Property="Background" Value="#414041" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn  Header="Image" Width="*" RenderOptions.BitmapScalingMode="NearestNeighbor" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding prod_image}" Height="100" Stretch="fill"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Reference #" Binding="{Binding ref_id}" Width="*" />
+                    <DataGridTextColumn Header="Customer name" Binding="{Binding customer_name}" Width="*" />
+                    <DataGridTextColumn Header="Contact #" Binding="{Binding contact}"  Width="*" />
+                    <DataGridTextColumn Header="Item Description" Binding="{Binding prod_desc}"  Width="*" />
+                    <DataGridTextColumn Header="Item Price" Binding="{Binding product_price, StringFormat=C}"  Width="*" />
+                    <DataGridTextColumn Header="Payment" Binding="{Binding payment, StringFormat=C}"  Width="*" />
+                    <DataGridTextColumn Header="Customer Type" Binding="{Binding customer_type}" Width="*" />
+                    <DataGridTextColumn Header="Date Ordered" Binding="{Binding date_ordered}" Width="*" />
+                    <DataGridTextColumn Header="" Binding="{Binding product_id}" Width="*" Visibility="Hidden" />
+
+                </DataGrid.Columns>
+
+                
+            </DataGrid>
+        </Border>
+
+
+        <TextBox
+                    x:Name="search" FontSize="12"
+                    ToolTip ="Search reservation detail"
+                    BorderThickness="1"
+                    Background="#FBFBFB"
+                    materialDesign:HintAssist.Hint="Search"
+                    materialDesign:HintAssist.Foreground="Green"
+                    materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="0,140,0,0" HorizontalAlignment="Right" Width="157"  VerticalAlignment="Top" TextChanged="search_TextChanged" Height="40"  />
+
+        <TextBox    x:Name="labor_cost"
+            Grid.Column="0"
+            BorderThickness="0" FontSize="11"
+            MaxLength="40"
+            Visibility="Visible" 
+            Focusable="True"
+            Background="#FBFBFB"
+            materialDesign:HintAssist.Hint="Labor Cost"
+            materialDesign:HintAssist.Foreground="Green"
+            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Margin="565,90,0,0" VerticalAlignment="Top" Height="36" RenderTransformOrigin="0.772,0.429" HorizontalAlignment="Left" Width="180"  />
+
+
+
+
+
+    </Grid>
+
+</UserControl>
